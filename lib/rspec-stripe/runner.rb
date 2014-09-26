@@ -18,13 +18,16 @@ module RSpecStripe
     end
 
     def cleanup!
-      subscription.delete if subscription_factory.should_delete
-      plan.delete if plan_factory.should_delete
-      card.delete if card_factory.should_delete
-      customer.delete if customer_factory.should_delete
+      factories.reject(&:nil?).each do |factory|
+        factory.cleanup
+      end
     end
 
     private
+
+    def factories
+      [ @subscription_factory, @plan_factory, @card_factory, @customer_factory ]
+    end
 
     def customer_factory
       @customer_factory ||= RSpecStripe::Factory::Customer.new(recipes[:customer])
