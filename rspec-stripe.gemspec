@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   s.name               = "rspec-stripe"
   s.license = "MIT"
-  s.date = %q{2014-9-26}
+  s.date = %q{2014-09-26}
   s.authors = ["Stephen Bussey"]
   s.email = %q{steve.bussey@salesloft.com}
   s.homepage = %q{https://github.com/sb8244/rspec-stripe}

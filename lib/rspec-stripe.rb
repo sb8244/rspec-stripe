@@ -5,7 +5,7 @@ require 'rspec-stripe/factories/plan'
 require 'rspec-stripe/factories/subscription'
 require 'rspec-stripe/factories/card'
 
-module StripeWorld
+module RSpecStripe
   extend self
 
   module RSpec

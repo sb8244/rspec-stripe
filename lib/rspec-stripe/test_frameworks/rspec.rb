@@ -11,7 +11,7 @@ module RSpecStripe
             example = ex.respond_to?(:metadata) ? ex : ex.example
             recipes = example.metadata[:stripe]
 
-            @runner = StripeWorld::Runner.new(recipes)
+            @runner = RSpecStripe::Runner.new(recipes)
             @runner.call!
 
             def stripe_customer
