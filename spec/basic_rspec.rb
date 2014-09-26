@@ -7,10 +7,16 @@ describe 'Basic' do
     expect {
       Stripe::Customer.retrieve(stripe_customer.id)
     }.not_to raise_error
+
+    expect(stripe_plan).to eq(nil)
+    expect(stripe_subscription).to eq(nil)
   end
 
   it "gives a plan", stripe: { plan: "test" } do
     expect(stripe_plan).not_to eq(nil)
+
+    expect(stripe_customer).to eq(nil)
+    expect(stripe_subscription).to eq(nil)
   end
 
   it "gives me a subscription", stripe: { customer: :new, plan: "test", subscription: "test" } do
