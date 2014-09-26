@@ -1,4 +1,4 @@
-rspec-stripe [![Code Climate](https://codeclimate.com/github/sb8244/rspec-stripe/badges/gpa.svg)](https://codeclimate.com/github/sb8244/rspec-stripe)
+rspec-stripe [![Code Climate](https://codeclimate.com/github/sb8244/rspec-stripe/badges/gpa.svg)](https://codeclimate.com/github/sb8244/rspec-stripe) [![Gem Version](https://badge.fury.io/rb/rspec-stripe.svg)](http://badge.fury.io/rb/rspec-stripe)
 ============
 
 The goal of this project is to easily setup the stripe environment for your tests. In the past, you probably had to create a customer, then a plan, then assign the plan, then create your new plan. That is extremely cumbersome to do once and record. It becomes damn near impossible to recreate that cassette 6 months later when you're refreshing your specs.
