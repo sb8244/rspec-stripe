@@ -29,6 +29,8 @@ With RSpec-Stripe, you can say what you want for your spec, and have it injected
   end
 ```
 
+After the spec, any newly created Stripe objects will be removed. However, if you specify an already existing Stripe object, it will not be removed after the spec.
+
 Installation
 ============
 
