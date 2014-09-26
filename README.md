@@ -36,8 +36,9 @@ Installation
 2. `bundle install`
 3. In your spec_helper.rb file, include `require 'rspec-stripe'` at the top. 
 4. Bootstrap it for RSpec:
-  ```
-  RSpecStripe.configure do |config|
-    config.configure_rspec_metadata!
-  end
-  ```
+
+```
+RSpecStripe.configure do |config|
+  config.configure_rspec_metadata!
+end
+```
