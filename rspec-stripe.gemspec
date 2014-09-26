@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
   s.require_paths = ["lib"]
   s.files = `git ls-files`.split("\n")
 
-  s.version            = "0.0.1"
+  s.version            = "0.0.2"
   s.required_ruby_version = '>= 2.0.0'
   s.required_rubygems_version = '>= 1.6.2'
 end
