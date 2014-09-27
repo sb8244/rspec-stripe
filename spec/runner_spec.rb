@@ -57,7 +57,7 @@ describe RSpecStripe::Runner do
       }
 
       it "creates the plan" do
-        runner = RSpecStripe::Runner.new({plan: "test"})
+        runner = RSpecStripe::Runner.new({plan: :new})
         runner.call!
       end
 
@@ -127,8 +127,6 @@ describe RSpecStripe::Runner do
   end
 
   describe "subscription" do
-    let(:card_double) { double(Stripe::Card) }
-
     context "without a customer" do
       it "raises error" do
         runner = RSpecStripe::Runner.new({subscription: "test"})
@@ -145,27 +143,13 @@ describe RSpecStripe::Runner do
           expect(stub).to receive(:create).once.with(plan: "test")
           stub
         }
-        expect(customer_double).to receive(:cards).once {
-          stub = double("cards")
-          expect(stub).to receive(:create).once.with(card: hash_including(number: card_number)) { card_double }
-          stub
-        }
       }
-
-      context "without a card specified" do
-        let(:card_number) { "4242424242424242" }
-
-        it "creates a generic card and subscription" do
-          runner = RSpecStripe::Runner.new({customer: "id", subscription: "test"})
-          runner.call!
-        end
-      end
 
       context "with a card specified" do
         let(:card_number) { "5555555555554444" }
 
         it "creates the specified card subscription" do
-          runner = RSpecStripe::Runner.new({customer: "id", subscription: "test", card: :mastercard})
+          runner = RSpecStripe::Runner.new({customer: "id", subscription: "test"})
           runner.call!
         end
       end

@@ -10,11 +10,7 @@ module RSpecStripe
       @customer = customer_factory.get if recipes[:customer]
       @plan = plan_factory.get if recipes[:plan]
       @card = card_factory.get if recipes[:card]
-
-      if recipes[:subscription]
-        @card ||= card_factory.get
-        @subscription = subscription_factory.get
-      end
+      @subscription = subscription_factory.get if recipes[:subscription]
     end
 
     def cleanup!
