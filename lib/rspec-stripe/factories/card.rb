@@ -9,12 +9,14 @@ module RSpecStripe::Factory
 
     def get
       @get ||= begin
-        customer.cards.create(card: recipes[id].merge(
-          exp_month: "01",
-          exp_year: "2025",
-          cvc: "111",
-          name: customer.id
-        ))
+        customer.cards.create(
+          card: {
+            exp_month: "01",
+            exp_year: "2025",
+            cvc: "111",
+            name: customer.id
+          }.merge(recipes[id])
+        )
       end
     end
 
@@ -41,6 +43,24 @@ module RSpecStripe::Factory
         },
         jcb: {
           number: "3530111333300000"
+        },
+        card_declined: {
+          number: "4000000000000002"
+        },
+        incorrect_number: {
+          number: "4242424242424241"
+        },
+        invalid_expiry_month: {
+          number: "4242424242424242",
+          exp_month: "13"
+        },
+        invalid_expiry_year: {
+          number: "4242424242424242",
+          exp_year: "1970"
+        },
+        invalid_cvc: {
+          number: "4242424242424242",
+          cvc: "99"
         }
       }
     end
