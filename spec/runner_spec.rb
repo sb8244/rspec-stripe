@@ -5,6 +5,8 @@ require 'fakeweb'
 # making the calls that we want
 FakeWeb.allow_net_connect = false
 
+# All runner options here are what would hash in rspec's stripe: hash syntax
+# This is an authority on what options are available in any version
 describe RSpecStripe::Runner do
   describe "customer" do
     let(:customer_double) { double(Stripe::Customer) }
