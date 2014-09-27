@@ -56,7 +56,7 @@ For a new customer, use the value `:new` in your hash. New customers will be cre
 For an existing customer, use the `"cus_something"` Stripe ID in your hash. Existing customers will not be destroyed when the spec is finished.
 
 ### Plan
-For a new plan, use the value `:new` or any plan id that doesn't exist in your Stripe instance. New plans will be created and then destroyed just for this spec. This is the recommended use case. Currently, you cannot specify the plan details and a default is used. This will be expanded on in `0.0.4`.
+For a new plan, use the value `:new` or any plan id that doesn't exist in your Stripe instance. New plans will be created and then destroyed just for this spec. This is the recommended use case. Currently, you cannot specify the plan details and a default is used. This will be expanded on in upcoming versions.
 
 For an existing plan, use the `"plan_id"` Stripe Plan ID in your hash. Existing plans will not be destroyed when the spec is finished.
 
