@@ -22,7 +22,7 @@ With RSpec-Stripe, you can say what you want for your spec, and have it injected
     expect(stripe_subscription).to eq(nil)
   end
 
-  it "gives me a subscription", stripe: { customer: :new, plan: "test", subscription: "test" } do
+  it "gives me a subscription", stripe: { customer: :new, plan: "test", card: :visa, subscription: "test" } do
     expect(stripe_customer).not_to eq(nil)
     expect(stripe_plan).not_to eq(nil)
     expect(stripe_subscription).not_to eq(nil)

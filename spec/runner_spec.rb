@@ -156,3 +156,5 @@ describe RSpecStripe::Runner do
     end
   end
 end
+
+FakeWeb.allow_net_connect = true
