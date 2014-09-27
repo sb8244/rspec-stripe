@@ -1,7 +1,5 @@
 require 'spec_helper'
 
-Stripe.api_key = ENV['STRIPE_TEST_KEY']
-
 describe 'Basic' do
   it "gives me a customer", stripe: { customer: :new } do
     expect {

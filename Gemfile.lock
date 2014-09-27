@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    rspec-stripe (0.0.1)
+    rspec-stripe (0.0.2)
 
 GEM
   remote: https://rubygems.org/
@@ -19,6 +19,7 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
+    fakeweb (1.3.0)
     json (1.8.1)
     mime-types (2.3)
     netrc (0.7.7)
@@ -43,6 +44,7 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
+  fakeweb
   rspec (~> 3.1)
   rspec-stripe!
   stripe!
