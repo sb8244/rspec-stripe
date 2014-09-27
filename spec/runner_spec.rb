@@ -86,4 +86,41 @@ describe RSpecStripe::Runner do
       end
     end
   end
+
+  describe "card" do
+    let(:card_double) { double(Stripe::Card) }
+    let(:customer_double) { double(Stripe::Customer, id: "id") }
+
+    context "without a customer" do
+      it "raises error" do
+        runner = RSpecStripe::Runner.new({card: :visa})
+        expect { runner.call! }.to raise_error("No customer given")
+      end
+    end
+
+    context "with a customer" do
+      before(:each) {
+        expect(Stripe::Customer).to receive(:retrieve).once { customer_double }
+        expect(customer_double).to receive(:cards).once {
+          stub = double("cards")
+          expect(stub).to receive(:create).once.with(card: hash_including(number: "4242424242424242")) { card_double }
+          stub
+        }
+      }
+
+      it "creates the card" do
+        runner = RSpecStripe::Runner.new({customer: "id", card: :visa})
+        runner.call!
+      end
+
+      it "cleans up" do
+        expect(card_double).to receive(:delete).once
+        runner = RSpecStripe::Runner.new({customer: "id", card: :visa})
+        runner.call!
+        runner.cleanup!
+      end
+
+      it "can create cards based on recipes"
+    end
+  end
 end

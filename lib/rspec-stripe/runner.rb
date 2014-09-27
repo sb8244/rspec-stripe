@@ -38,10 +38,12 @@ module RSpecStripe
     end
 
     def subscription_factory
+      raise "No customer given" unless customer
       @subscription_factory ||= RSpecStripe::Factory::Subscription.new(recipes[:subscription], customer)
     end
 
     def card_factory
+      raise "No customer given" unless customer
       @card_factory ||= RSpecStripe::Factory::Card.new(recipes[:card], customer)
     end
   end
