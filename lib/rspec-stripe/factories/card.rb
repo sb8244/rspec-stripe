@@ -26,6 +26,21 @@ module RSpecStripe::Factory
       {
         visa: {
           number: "4242424242424242"
+        },
+        mastercard: {
+          number: "5555555555554444"
+        },
+        amex: {
+          number: "378282246310005"
+        },
+        discover: {
+          number: "6011111111111117"
+        },
+        diners: {
+          number: "30569309025904"
+        },
+        jcb: {
+          number: "3530111333300000"
         }
       }
     end
