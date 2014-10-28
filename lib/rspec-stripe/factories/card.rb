@@ -45,7 +45,7 @@ module RSpecStripe::Factory
           number: "3530111333300000"
         },
         card_declined: {
-          number: "4000000000000002"
+          number: "4000000000000341"
         },
         incorrect_number: {
           number: "4242424242424241"
