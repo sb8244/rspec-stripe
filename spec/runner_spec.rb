@@ -122,6 +122,15 @@ describe RSpecStripe::Runner do
         runner.cleanup!
       end
 
+      context "if Stripe errors out in cleanup" do
+        it "doesn't error out" do
+          runner = RSpecStripe::Runner.new({customer: "id", card: :visa})
+          runner.call!
+          expect(card_double).to receive(:delete).once.and_raise(Stripe::InvalidRequestError.new("x", "x"))
+          runner.cleanup!
+        end
+      end
+
       it "can create cards based on recipes"
     end
   end
