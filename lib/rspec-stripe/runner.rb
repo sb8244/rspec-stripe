@@ -1,16 +1,33 @@
 module RSpecStripe
   class Runner
-    attr_accessor :recipes, :customer, :plan, :subscription, :card
+    attr_accessor :recipes, :customer, :customer_event,
+      :plan, :plan_event, :subscription, :subscription_event,
+      :card, :card_event
 
     def initialize(recipes)
       @recipes = recipes
     end
 
     def call!
-      @customer = customer_factory.get if recipes[:customer]
-      @plan = plan_factory.get if recipes[:plan]
-      @card = card_factory.get if recipes[:card]
-      @subscription = subscription_factory.get if recipes[:subscription]
+      if recipes[:customer]
+        @customer = customer_factory.get
+        @customer_event = Stripe::Event.all(type: 'customer.created').first if recipes[:track_events]
+      end
+
+      if recipes[:plan]
+        @plan = plan_factory.get if recipes[:plan]
+        @plan_event = Stripe::Event.all(type: 'plan.created').first if recipes[:track_events]
+      end
+
+      if recipes[:card]
+        @card = card_factory.get
+        @card_event = Stripe::Event.all(type: 'customer.source.created').first if recipes[:track_events]
+      end
+
+      if recipes[:subscription]
+        @subscription = subscription_factory.get if recipes[:subscription]
+        @subscription_event = Stripe::Event.all(type: 'customer.subscription.created').first if recipes[:track_events]
+      end
     end
 
     def cleanup!
