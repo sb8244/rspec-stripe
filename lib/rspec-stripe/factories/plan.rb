@@ -3,7 +3,7 @@ module RSpecStripe::Factory
     def get
       @get ||= begin
         @should_delete = false
-        Stripe::Plan.retrieve(id)
+        Stripe::Plan.retrieve(id.to_s)
       rescue Stripe::InvalidRequestError
         @should_delete = true
         # Lookup the plan's details and then create it
@@ -12,7 +12,7 @@ module RSpecStripe::Factory
           interval: 'month',
           name: 'Amazing Gold Plan',
           currency: 'usd',
-          id: id
+          id: id.to_s
         )
       end
     end

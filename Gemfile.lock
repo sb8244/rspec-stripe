@@ -10,7 +10,7 @@ GIT
 PATH
   remote: .
   specs:
-    rspec-stripe (0.0.2)
+    rspec-stripe (0.0.5)
 
 GEM
   remote: https://rubygems.org/
