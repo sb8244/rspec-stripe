@@ -22,6 +22,7 @@ module RSpecStripe::Factory
 
     def cleanup
       get.delete
+    rescue Stripe::InvalidRequestError # ignore
     end
 
     def recipes
