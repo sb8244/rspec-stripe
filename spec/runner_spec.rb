@@ -145,11 +145,12 @@ describe RSpecStripe::Runner do
 
     context "with a customer" do
       let(:customer_double) { double(Stripe::Customer, id: "id") }
+      let(:expected_params) { { plan: "test", metadata: {} } }
       before(:each) {
         expect(Stripe::Customer).to receive(:retrieve).once { customer_double }
         expect(customer_double).to receive(:subscriptions).once {
           stub = double("subscriptions")
-          expect(stub).to receive(:create).once.with(plan: "test")
+          expect(stub).to receive(:create).once.with(expected_params)
           stub
         }
       }
@@ -160,6 +161,15 @@ describe RSpecStripe::Runner do
         it "creates the specified card subscription" do
           runner = RSpecStripe::Runner.new({customer: "id", subscription: "test"})
           runner.call!
+        end
+
+        context "with subscription_metadata" do
+          let!(:expected_params) { { plan: "test", metadata: { a: "test" }} }
+
+          it "creates the specified metadata subscription" do
+            runner = RSpecStripe::Runner.new({customer: "id", subscription: "test", subscription_metadata: { a: "test" }})
+            runner.call!
+          end
         end
       end
     end

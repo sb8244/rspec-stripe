@@ -1,8 +1,8 @@
 module RSpecStripe::Factory
-  Subscription = Struct.new(:id, :customer) do
+  Subscription = Struct.new(:id, :customer, :metadata) do
     def get
       @get ||= begin
-        customer.subscriptions.create(plan: id)
+        customer.subscriptions.create(plan: id, metadata: metadata)
       end
     end
 

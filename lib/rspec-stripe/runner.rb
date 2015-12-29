@@ -35,7 +35,7 @@ module RSpecStripe
 
     def subscription_factory
       raise "No customer given" unless customer
-      @subscription_factory ||= RSpecStripe::Factory::Subscription.new(recipes[:subscription], customer)
+      @subscription_factory ||= RSpecStripe::Factory::Subscription.new(recipes[:subscription], customer, recipes.fetch(:subscription_metadata, {}))
     end
 
     def card_factory
