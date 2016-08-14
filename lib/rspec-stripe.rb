@@ -4,6 +4,7 @@ require 'rspec-stripe/factories/customer'
 require 'rspec-stripe/factories/plan'
 require 'rspec-stripe/factories/subscription'
 require 'rspec-stripe/factories/card'
+require 'rspec-stripe/factories/token'
 
 module RSpecStripe
   extend self
