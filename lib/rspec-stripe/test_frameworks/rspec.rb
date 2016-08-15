@@ -25,6 +25,10 @@ module RSpecStripe
             def stripe_subscription
               @stripe_subscription ||= @runner.subscription
             end
+
+            def stripe_token
+              @stripe_token ||= @runner.token
+            end
           end
 
           config.after(:each, when_tagged_with_stripe) do |ex|

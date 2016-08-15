@@ -9,7 +9,7 @@ module RSpecStripe::Factory
 
     def get
       @get ||= begin
-        customer.cards.create(
+        customer.sources.create(
           card: {
             exp_month: "01",
             exp_year: "2025",

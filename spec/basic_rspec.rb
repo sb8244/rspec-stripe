@@ -22,4 +22,8 @@ describe 'Basic' do
     expect(stripe_plan).not_to eq(nil)
     expect(stripe_subscription).not_to eq(nil)
   end
+
+  it "gives me a token", stripe: { token: :visa } do
+    expect(stripe_token).not_to eq(nil)
+  end
 end
