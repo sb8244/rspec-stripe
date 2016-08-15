@@ -118,7 +118,7 @@ describe RSpecStripe::Runner do
     context "with a customer" do
       before(:each) {
         expect(Stripe::Customer).to receive(:retrieve).once { customer_double }
-        expect(customer_double).to receive(:cards).once {
+        expect(customer_double).to receive(:sources).once {
           stub = double("cards")
           expect(stub).to receive(:create).once.with(card: hash_including(number: "4242424242424242")) { card_double }
           stub
