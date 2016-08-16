@@ -15,4 +15,10 @@ Gem::Specification.new do |s|
   s.version            = "0.0.8"
   s.required_ruby_version = '>= 2.0.0'
   s.required_rubygems_version = '>= 1.6.2'
+
+  s.add_runtime_dependency "stripe"
+  s.add_runtime_dependency "rspec"
+
+  s.add_development_dependency "dotenv"
+  s.add_development_dependency "fakeweb"
 end

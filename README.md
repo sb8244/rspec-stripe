@@ -65,6 +65,9 @@ Cards are always created new when specified. There are several different built-i
 
 Card requires that `customer` is defined and will raise an exception if the customer is not given (either new or existing is fine).
 
+### Token
+Tokens are always created new when specified. There are several different built-in token types given from the Stripe Docs. These tokens are `:visa :mastercard :amex :discover :diners :jcb`. You can pass any of these token names for and `rspec-stripe` will use the corresponding test card hash value to create the token. Tokens are not deleted after the spec because there is no api call to do so.
+
 ### Subscription
 Subscriptions are always created new when specified. Use the value `"plan_id"` for the subscription field. The subscription will be created with this plan and then deleted after the spec.
 

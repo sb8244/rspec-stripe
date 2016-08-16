@@ -47,6 +47,21 @@ describe RSpecStripe::Runner do
     end
   end
 
+  describe "token" do
+    let(:token_double) { double(Stripe::Token) }
+
+    context "with a new token" do
+      before(:each) {
+        expect(Stripe::Token).to receive(:create).once.with(card: hash_including(number: "4242424242424242")) { token_double }
+      }
+
+      it "creates the token" do
+        runner = RSpecStripe::Runner.new({token: :visa})
+        runner.call!
+      end
+    end
+  end
+
   describe "plan" do
     let(:plan_double) { double(Stripe::Plan) }
 

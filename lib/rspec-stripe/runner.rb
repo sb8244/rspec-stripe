@@ -1,6 +1,6 @@
 module RSpecStripe
   class Runner
-    attr_accessor :recipes, :customer, :plan, :subscription, :card
+    attr_accessor :recipes, :customer, :plan, :subscription, :card, :token
 
     def initialize(recipes)
       @recipes = recipes
@@ -10,6 +10,7 @@ module RSpecStripe
       @customer = customer_factory.get if recipes[:customer]
       @plan = plan_factory.get if recipes[:plan]
       @card = card_factory.get if recipes[:card]
+      @token = token_factory.get if recipes[:token]
       @subscription = subscription_factory.get if recipes[:subscription]
     end
 
@@ -22,7 +23,7 @@ module RSpecStripe
     private
 
     def factories
-      [ @subscription_factory, @plan_factory, @card_factory, @customer_factory ]
+      [ @subscription_factory, @plan_factory, @card_factory, @customer_factory, @token_factory ]
     end
 
     def customer_factory
@@ -31,6 +32,10 @@ module RSpecStripe
 
     def plan_factory
       @plan_factory ||= RSpecStripe::Factory::Plan.new(recipes[:plan])
+    end
+
+    def token_factory
+      @token_factory ||= RSpecStripe::Factory::Token.new(recipes[:token])
     end
 
     def subscription_factory
