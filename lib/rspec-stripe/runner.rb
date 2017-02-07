@@ -15,7 +15,10 @@ module RSpecStripe
 
     def cleanup!
       factories.reject(&:nil?).each do |factory|
-        factory.cleanup
+        begin
+          factory.cleanup
+        rescue Stripe::InvalidRequestError
+        end
       end
     end
 
