@@ -27,6 +27,16 @@ describe RSpecStripe::Runner do
         runner.call!
         runner.cleanup!
       end
+
+      it "tracks the event" do
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'customer.created') { double(Stripe::Event, first: 'an_event') }
+
+        runner = RSpecStripe::Runner.new({customer: :new, track_events: true})
+        runner.call!
+
+        expect(runner.customer_event).to eq('an_event')
+      end
     end
 
     context "with an existing customer" do
@@ -52,8 +62,11 @@ describe RSpecStripe::Runner do
 
     context "with a new plan" do
       before(:each) {
-        expect(Stripe::Plan).to receive(:retrieve).once { raise Stripe::InvalidRequestError.new("", "", 404) }
-        expect(Stripe::Plan).to receive(:create).once.with(hash_including(name: "Amazing Gold Plan")) { plan_double }
+        expect(Stripe::Plan).to receive(:retrieve).
+          once { raise Stripe::InvalidRequestError.new("", "", 404) }
+
+        expect(Stripe::Plan).to receive(:create).once.
+          with(hash_including(name: "Amazing Gold Plan")) { plan_double }
       }
 
       it "creates the plan" do
@@ -66,6 +79,16 @@ describe RSpecStripe::Runner do
         runner = RSpecStripe::Runner.new({plan: "test"})
         runner.call!
         runner.cleanup!
+      end
+
+      it "tracks the event" do
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'plan.created') { double(Stripe::Event, first: 'an_event') }
+
+        runner = RSpecStripe::Runner.new({plan: :new, track_events: true})
+        runner.call!
+
+        expect(runner.plan_event).to eq('an_event')
       end
 
       it "can create plans based on recipes"
@@ -154,6 +177,37 @@ describe RSpecStripe::Runner do
           stub
         }
       }
+
+      it "tracks the event" do
+        expect(Stripe::Plan).to receive(:retrieve).
+          once { raise Stripe::InvalidRequestError.new("", "", 404) }
+        expect(Stripe::Plan).to receive(:create).once.
+          with(hash_including(id: "test")) { double(Stripe::Plan) }
+
+        expect(customer_double).to receive(:cards).once {
+          stub = double("cards")
+          expect(stub).to receive(:create).once.
+            with(card: hash_including(number: "4242424242424242")) { double(Stripe::Card) }
+          stub
+        }
+
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'customer.created') { double(Stripe::Event, first: 'customer_event') }
+
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'plan.created') { double(Stripe::Event, first: 'plan_event') }
+
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'customer.source.created') { double(Stripe::Event, first: 'source_event') }
+
+        expect(Stripe::Event).to receive(:all).once.
+          with(type: 'customer.subscription.created') { double(Stripe::Event, first: 'subscription_event') }
+
+        runner = RSpecStripe::Runner.new({customer: 'id', plan: 'test', subscription: 'test', card: :visa, track_events: true})
+        runner.call!
+
+        expect(runner.subscription_event).to eq('subscription_event')
+      end
 
       context "with a card specified" do
         let(:card_number) { "5555555555554444" }
